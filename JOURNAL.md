@@ -29,3 +29,16 @@ Made a little design in KiCAD:
 ![First Design](./first_design.png)
 
 Total time spent: 3h
+
+## May 23: Hardware Hunting
+
+I needed a dev board to test out the functioanlity (connecting over bluetooth, reading the USB signals, etc). My ESP32-S3 devboard is still being shipped, so in the meantime, I had to ~~steal~~borrow one of my friend's ESP32. Although it doesn't support USB OTG (On The Go), the feature I ned to make my module a USB host and intercept the keyboard's signals, I was still able to test out the BLE HID (Bluetooth Low Energy Human Interface Device) to simulate keypresses wirelessly!
+
+First, I needed to figure out a way to proram it. I dug up an ESP Prog lying around in my hardware kit, and connected the UART pins (RX => TX0, TX => RX0). To flash the code you needed to hold down the BOOT pin while pressing the EN (reset) pin to enter bootloader mode. After the code is flashed, the EN pin must eb pressed once again to start running the new code.
+
+I flashed code that printed "Hello World" to serial, confirming I was able to wire everything properly!
+
+![ESP PROG](./ESP-Prog.JPG)
+![Borrowed ESP](./ESP32-devkit.JPG)
+
+Total time spent: 1h
