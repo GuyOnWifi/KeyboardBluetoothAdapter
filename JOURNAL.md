@@ -42,3 +42,13 @@ I flashed code that printed "Hello World" to serial, confirming I was able to wi
 ![Borrowed ESP](./ESP32-devkit.JPG)
 
 Total time spent: 1h
+
+## May 24
+
+I got platformio working, because I wanted to use an actual IDE like VSCode instead of Arduino IDE. I found an ESP32 BLE HID library that I imported, and ran the example program. I tried to get it to work in Neovim, but the LSP kept throwing me errors. Will try again tomorrow.
+
+I was able to connect with it through bluetooth, and it was able to type in "Hello World"!
+
+![Bluetooth Screen](./bluetooth_screen.png)
+
+Total time spent: 2h
