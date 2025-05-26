@@ -10,7 +10,7 @@
             "includePath": [
                 "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/include",
                 "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/src",
-                "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/lib/ESP32-BLE-Keyboard",
+                "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/.pio/libdeps/esp32dev/ESP32 BLE Keyboard",
                 "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
                 "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                 "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",
@@ -247,7 +247,7 @@
                 "path": [
                     "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/include",
                     "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/src",
-                    "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/lib/ESP32-BLE-Keyboard",
+                    "/home/guyonwifi/Coding-Projects/KeyboardBluetoothAdapter/.pio/libdeps/esp32dev/ESP32 BLE Keyboard",
                     "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/libraries/BLE/src",
                     "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/newlib/platform_include",
                     "/home/guyonwifi/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32/include/freertos/include",

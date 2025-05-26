@@ -95,4 +95,7 @@ So it seems that the USB HID sends all key presses from 0x43 onwards, and sends 
 
 I tested my Bluetooth keyboard, and it works on my phone! Planning on writing a python script to forward my keypresses to the Bluetooth keyboard as a proof of concept.
 
+Got neovim LSP support with clangd (painfully). Required editing the platformio.ini file to properly generate the compile_commands.json, as well as manually including the BLE library (which wasn't included automatically for some reason??)
+
 Time spent: 1h
+
