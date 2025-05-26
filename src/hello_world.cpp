@@ -14,6 +14,12 @@ void setup() {
 
 void loop() {
   if(bleKeyboard.isConnected()) {
+    Serial.println("Waiting for Serial input before sending");
+
+    while (Serial.available() == 0) {}
+
+    while (Serial.available() > 0) Serial.read();
+
     Serial.println("Sending 'Hello world'...");
     bleKeyboard.print("Hello world");
 
@@ -21,11 +27,6 @@ void loop() {
 
     Serial.println("Sending Enter key...");
     bleKeyboard.write(KEY_RETURN);
-
-    delay(1000);
-
-    Serial.println("Sending Play/Pause media key...");
-    bleKeyboard.write(KEY_MEDIA_PLAY_PAUSE);
 
     delay(1000);
 
@@ -40,8 +41,9 @@ void loop() {
     delay(100);
     bleKeyboard.releaseAll();
     */
+  } else {
+    Serial.println("Waiting 5 seconds for connection...");
+    delay(5000);
   }
 
-  Serial.println("Waiting 5 seconds...");
-  delay(5000);
 }

@@ -9,10 +9,10 @@ created_at: "2024-05-21"
 
 Researched a bunch of components I can use that support Bluetooth Low Energy and the Human Interface Device protocol:
 
-|        | **nRF52840**                                                   | **ESP32-S3**                                         | **STM32**                                                       |
-|--------|----------------------------------------------------------------|------------------------------------------------------|-----------------------------------------------------------------|
+|          | **nRF52840**                                                                         | **ESP32-S3**                                                         | **STM32**                                                                         |
+| -------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
 | **Pros** | - Ultra low battery usage <br> - Mature BLE HID ecosystem, great SDK <br> - Low cost | - Dual-core! <br> - Wi-Fi integration as well as BLE <br> - Low cost | - Low power <br> - Tons of features, products, ecosystem <br> - Industry standard |
-| **Cons** | - No USB host support <br> - Needs external chip (e.g., MAX3421E) for USB host | - More power hungry | - Much harder to learn <br> - Slightly more expensive |
+| **Cons** | - No USB host support <br> - Needs external chip (e.g., MAX3421E) for USB host       | - More power hungry                                                  | - Much harder to learn <br> - Slightly more expensive                             |
 
 Ultimately, I decided on the ESP32-S3, and bought a devboard!
 
@@ -26,7 +26,7 @@ Ultimately settled for an ESP32-S3 module (the WROOM-1), because it comes with b
 
 USB was a bit more complex. I had to look into USBC 2.0 spec (wtf is CC1, CC2, and VCONN) and connect the USB-OTG module of my ESP module to a plug. Still working on a way just to have the male end that can directly plug into my keyboard but I think I might be breaking USB spec.
 Made a little design in KiCAD:
-![First Design](./first_design.png)
+![First Design](./images/first_design.png)
 
 Total time spent: 3h
 
@@ -38,8 +38,8 @@ First, I needed to figure out a way to proram it. I dug up an ESP Prog lying aro
 
 I flashed code that printed "Hello World" to serial, confirming I was able to wire everything properly!
 
-![ESP PROG](./ESP-Prog.JPG)
-![Borrowed ESP](./ESP32-devkit.JPG)
+![ESP PROG](./images/ESP-Prog.JPG)
+![Borrowed ESP](./images/ESP32-devkit.JPG)
 
 Total time spent: 1h
 
@@ -49,6 +49,50 @@ I got platformio working, because I wanted to use an actual IDE like VSCode inst
 
 I was able to connect with it through bluetooth, and it was able to type in "Hello World"!
 
-![Bluetooth Screen](./bluetooth_screen.png)
+![Bluetooth Screen](./images/bluetooth_screen.png)
 
 Total time spent: 2h
+
+## May 24: USB debugging
+
+I wanted to actually look into the USB HID signals that the keyboard was sending, so I installed wireshark to analyze the packets. Setting up the USB debugging on Linux was a bit painful, involving enabling the `usbmon` kernel module (sudo modprobe usbmon), adding myself to the `wireshark` group and adding the `wireshark` group to `/dev/usbmon*`.
+
+In the end, I was able get my keyboard plugged in and have wireshark inspect the packets!
+
+![Wireshark](./images/wireshark.png)
+
+Sample packet for pressing the `a` key:
+0000   80 7c 25 48 ec 9a ff ff 43 01 81 09 03 00 2d 00
+0010   9c 53 33 68 00 00 00 00 81 8c 0c 00 00 00 00 00
+0020   08 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+0030   01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00
+0040   00 00 04 00 00 00 00 00
+
+Sample packet for pressing the `b` key:
+0000   80 7c 25 48 ec 9a ff ff 43 01 81 09 03 00 2d 00
+0010   af 53 33 68 00 00 00 00 17 b7 01 00 00 00 00 00
+0020   08 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+0030   01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00
+0040   00 00 05 00 00 00 00 00
+
+Sample packet for pressing the `z` key
+0000   80 7c 25 48 ec 9a ff ff 43 01 81 09 03 00 2d 00
+0010   cd 53 33 68 00 00 00 00 82 b1 00 00 00 00 00 00
+0020   08 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+0030   01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00
+0040   00 00 1d 00 00 00 00 00
+
+In the Bluetooth HID spec, a is mapped as 0x04, b is mapped as 0x05, z is mapped as 0x1d. This matches the bits at 0x43.
+
+Pressing down all three of the keys simulatneously gives:
+0000   80 7c 25 48 ec 9a ff ff 43 01 81 09 03 00 2d 00
+0010   d5 54 33 68 00 00 00 00 e8 4d 01 00 00 00 00 00
+0020   08 00 00 00 08 00 00 00 00 00 00 00 00 00 00 00
+0030   01 00 00 00 00 00 00 00 04 02 00 00 00 00 00 00
+0040   00 00 04 05 1d 00 00 00
+
+So it seems that the USB HID sends all key presses from 0x43 onwards, and sends 00 to indicate key releases.
+
+I tested my Bluetooth keyboard, and it works on my phone! Planning on writing a python script to forward my keypresses to the Bluetooth keyboard as a proof of concept.
+
+Time spent: 1h
