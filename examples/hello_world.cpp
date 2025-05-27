@@ -1,5 +1,6 @@
 /**
- * This example turns the ESP32 into a Bluetooth LE keyboard that writes the words, presses Enter, presses a media key and then Ctrl+Alt+Delete
+ * This example turns the ESP32 into a Bluetooth LE keyboard that writes the
+ * words, presses Enter, presses a media key and then Ctrl+Alt+Delete
  */
 
 #include <Arduino.h>
@@ -13,12 +14,14 @@ void setup() {
 }
 
 void loop() {
-  if(bleKeyboard.isConnected()) {
+  if (bleKeyboard.isConnected()) {
     Serial.println("Waiting for Serial input before sending");
 
-    while (Serial.available() == 0) {}
+    while (Serial.available() == 0) {
+    }
 
-    while (Serial.available() > 0) Serial.read();
+    while (Serial.available() > 0)
+      Serial.read();
 
     Serial.println("Sending 'Hello world'...");
     bleKeyboard.print("Hello world");
@@ -27,12 +30,11 @@ void loop() {
 
     Serial.println("Sending Enter key...");
     bleKeyboard.write(KEY_RETURN);
-
     delay(1000);
 
-   //
-   // Below is an example of pressing multiple keyboard modifiers 
-   // which by default is commented out.
+    //
+    // Below is an example of pressing multiple keyboard modifiers
+    // which by default is commented out.
     /*
     Serial.println("Sending Ctrl+Alt+Delete...");
     bleKeyboard.press(KEY_LEFT_CTRL);
@@ -45,5 +47,4 @@ void loop() {
     Serial.println("Waiting 5 seconds for connection...");
     delay(5000);
   }
-
 }

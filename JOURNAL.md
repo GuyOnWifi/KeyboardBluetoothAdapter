@@ -43,7 +43,7 @@ I flashed code that printed "Hello World" to serial, confirming I was able to wi
 
 Total time spent: 1h
 
-## May 24
+## May 24: Platformio Migration
 
 I got platformio working, because I wanted to use an actual IDE like VSCode instead of Arduino IDE. I found an ESP32 BLE HID library that I imported, and ran the example program. I tried to get it to work in Neovim, but the LSP kept throwing me errors. Will try again tomorrow.
 
@@ -53,7 +53,7 @@ I was able to connect with it through bluetooth, and it was able to type in "Hel
 
 Total time spent: 2h
 
-## May 24: USB debugging
+## May 25: USB debugging
 
 I wanted to actually look into the USB HID signals that the keyboard was sending, so I installed wireshark to analyze the packets. Setting up the USB debugging on Linux was a bit painful, involving enabling the `usbmon` kernel module (sudo modprobe usbmon), adding myself to the `wireshark` group and adding the `wireshark` group to `/dev/usbmon*`.
 
@@ -99,3 +99,16 @@ Got neovim LSP support with clangd (painfully). Required editing the platformio.
 
 Time spent: 1h
 
+## May 26: Basic Prototype (ish)!
+
+I wrote a python script to capture my keyboard's input events through `evdev`. Took a while, attempted with `pynput` but it didn't work (X11 vs Wayland again), tried with pyUSB but that didn't work, ultimately settled for evdev reading through the `/dev/input/eventX`
+
+It takes in the keyboard events and translates them into the appropriate ASCII value or special key value described [here](https://docs.arduino.cc/language-reference/en/functions/usb/Keyboard/keyboardModifiers/), and sends it over pyserial. 
+
+I have the keyboard plugged into my laptop running the python script, and the ESP plugged into my laptop to receive the serial input. The bluetooth keyboard is connected to my phone, so it's able to type whatever I'm typing. This journal is currently being written on my laptop, and also on my phone through the bluetoth keyboard.
+
+Now that I have a working protoype that can read in the keyboard events and send them over, I just need to do it all on one microcontroler and avoid the laptop intermediary in total!
+
+Still waiting on my ESP32-S3 devkit to arrive, in the meantime, this will do!
+
+Total time spent: 1.5hrs
