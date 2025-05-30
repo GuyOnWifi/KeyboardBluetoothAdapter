@@ -1,10 +1,5 @@
 .pio
 venv/
-<<<<<<< HEAD
 .vscode/
 .cache/
-=======
 build/
-.vscode/
-.cache/
->>>>>>> 9a72335 (Update gitignore)
