@@ -112,3 +112,13 @@ Now that I have a working protoype that can read in the keyboard events and send
 Still waiting on my ESP32-S3 devkit to arrive, in the meantime, this will do!
 
 Total time spent: 1.5hrs
+
+## May 29: ESP32-S3 ARRIVED!!!
+
+The module finally arrived!
+
+To use USB OTG, I have to switch from the Arduino framework to the ESP-IDF framework. Wrote a basic Hello World to get familiar with it. FreeRTOS seems cool. Spent the rest of the time reading the [examples](https://github.com/espressif/esp-idf/tree/master/examples/peripherals/usb/host/hid)
+
+Time spent: 1hrs
+
+![ESP32](./images/ESP32-S3.jpg)
