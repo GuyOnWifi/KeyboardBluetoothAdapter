@@ -1,18 +1,10 @@
-<<<<<<< HEAD
 from evdev import InputDevice, KeyEvent, categorize, ecodes, list_devices
-=======
-from evdev import InputDevice, KeyEvent, categorize, ecodes
->>>>>>> 056ded2 (Changed files)
 from typing import cast
 import subprocess
 import serial
 
 # setup the evdev
-<<<<<<< HEAD
 inp_path = "/dev/input/event17"
-=======
-inp_path = "/dev/input/event2"
->>>>>>> 056ded2 (Changed files)
 
 print("Give permissions to read the file")
 subprocess.run(["sudo", "chmod", "a+r", inp_path])
@@ -66,11 +58,7 @@ key_map = {
 }
 
 # initialize the serial connection
-<<<<<<< HEAD
 ser = serial.Serial('/dev/ttyUSB0', 115200)  # or 'COM3' on Windows
-=======
-ser = serial.Serial("/dev/ttyUSB0", 115200)  # or 'COM3' on Windows
->>>>>>> 056ded2 (Changed files)
 
 for event in kbd.read_loop():
     if event.type == ecodes.EV_KEY:
@@ -78,7 +66,6 @@ for event in kbd.read_loop():
         key = key_map.get(key_event.scancode, ord("?"))
         if key_event.keystate == KeyEvent.key_down:
             print(f"DOWN: {key}")
-<<<<<<< HEAD
             ser.write('1'.encode())
             ser.write(bytes([key]))
         elif key_event.keystate == KeyEvent.key_up:
@@ -86,11 +73,3 @@ for event in kbd.read_loop():
             ser.write('0'.encode())
             ser.write(bytes([key]))
 
-=======
-            ser.write("1".encode())
-            ser.write(bytes([key]))
-        elif key_event.keystate == KeyEvent.key_up:
-            print(f"UP: {key}")
-            ser.write("0".encode())
-            ser.write(bytes([key]))
->>>>>>> 056ded2 (Changed files)
