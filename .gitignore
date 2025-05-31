@@ -1,5 +1,4 @@
-.pio
-venv/
-.vscode/
-.cache/
 build/
+sdkconfig
+sdkconfig.old
+.vscode/
