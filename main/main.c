@@ -241,7 +241,7 @@ void hid_host_keyboard_report_callback(const uint8_t *const data,
   }
 
   if (sec_conn) {
-    esp_hidd_send_keyboard_value(hid_conn_id, 0, kb_report->key, count);
+    esp_hidd_send_keyboard_value(hid_conn_id, kb_report->modifier.val, kb_report->key, count);
   }
 }
 
